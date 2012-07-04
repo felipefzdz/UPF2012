@@ -20,7 +20,7 @@ public class H2ConnectionProviderTest {
 		try {
 			c = provider.getConnection();
 			st = c.createStatement();
-			rs = st.executeQuery("SELECT count(*) from example");
+			rs = st.executeQuery("SELECT count(*) from trainings");
 			Assert.assertEquals(0, rs.getInt(1));
 		} finally {
 			if(rs != null) rs.close();
