@@ -39,10 +39,16 @@
 	  		 'teamName': 'testTeam'
 	  	},
 	  success: function(data) {
-	  	alert('retrieved: ' + JSON.stringify(data));
+	  	$('trainingsDiv').empty();
+	  	$.each(data, function(value){
+	  		$('trainingsDiv').append('<p>' + JSON.stringify(value) + '</p>');
+	  	});
 	  }
 	});
   });
+  
+  <h3> Team trainings </h3>
+  <div id="trainingsDiv"></div>
   
 </script>
 </body>
