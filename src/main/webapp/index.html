@@ -4,10 +4,29 @@
   <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
+	<p>
 	<button id="btn1" name="btn1" value="btn1">action 1</button>
+	</p>
+	<p>
+	<button id="btn2" name="btn2" value="btn2">PUT training</button>
+	</p>	
+	
+	
 <script>
   $("#btn1").click(function(){ alert('hello world');});
+  $("#btn2").click(function(){
+	  $.ajax({
+	  url: 'Training',
+	  dataType: 'json',
+	  type: 'PUT',
+	  data: {'type': 'TRAINING', 
+	  		 'json_descriptor' : "{'distance':'5700',id:'86d2e396-0b69-46f4-a3ed-bcadb39edc95',name:'run in the forest',trainingDate:'1341402755'}"
+	  	},
+	  success: function() {
+	  	alert('success');
+	  }
+	});
+  });
 </script>
-
 </body>
 </html>
