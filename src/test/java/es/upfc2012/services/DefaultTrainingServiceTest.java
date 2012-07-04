@@ -8,16 +8,16 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import es.upfc2012.connection.ConnectionProvider;
-import es.upfc2012.connection.MysqlConnectionProvider;
+import es.upfc2012.connection.H2ConnectionProvider;
 import es.upfc2012.domain.Training;
 
 public class DefaultTrainingServiceTest {
 
     @Test
     public void testSaveAndGet() throws SQLException, ServiceException {
-        ConnectionProvider provider = new MysqlConnectionProvider();
-        // provider.getConnection().createStatement()
-        // .execute("RUNSCRIPT FROM 'classpath:db/createDB.sql'");
+        ConnectionProvider provider = new H2ConnectionProvider();
+        provider.getConnection().createStatement()
+            .execute("RUNSCRIPT FROM 'classpath:db/createDB.sql'");
 
         DefaultTrainingService service =
             new DefaultTrainingService(provider);

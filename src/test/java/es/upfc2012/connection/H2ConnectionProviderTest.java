@@ -13,7 +13,7 @@ public class H2ConnectionProviderTest {
 
     @Test
     public void testGetConnection() throws SQLException {
-        ConnectionProvider provider = new MysqlConnectionProvider();
+        ConnectionProvider provider = new H2ConnectionProvider();
         Connection c = null;
         Statement st = null;
         ResultSet rs = null;
