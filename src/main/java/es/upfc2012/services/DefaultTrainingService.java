@@ -38,7 +38,7 @@ public class DefaultTrainingService implements TrainingService {
 					INSERT_INTO_TRAININGS);
 			training.setId(UUID.randomUUID().toString());
 
-			int index = 0;
+			int index = 1;
 			stmt.setString(index++, training.getId());
 			stmt.setString(index++, teamName);
 			stmt.setString(index++, training.getName());
@@ -60,7 +60,7 @@ public class DefaultTrainingService implements TrainingService {
 		try {
 			stmt = _provider.getConnection().prepareStatement(UPDATE_TRAININGS);
 
-			int index = 0;
+			int index = 1;
 			stmt.setString(index++, teamName);
 			stmt.setString(index++, training.getName());
 			stmt.setLong(index++, training.getDistance());
@@ -85,7 +85,7 @@ public class DefaultTrainingService implements TrainingService {
 			stmt = _provider.getConnection().prepareStatement(
 					RETRIEVE_TRAININGS);
 
-			int index = 0;
+			int index = 1;
 			stmt.setString(index++, teamName);
 			ResultSet result = stmt.executeQuery();
 
@@ -111,7 +111,7 @@ public class DefaultTrainingService implements TrainingService {
 			stmt = _provider.getConnection().prepareStatement(
 					GET_TRAINING);
 
-			int index = 0;
+			int index = 1;
 			stmt.setString(index++, trainingId);
 			ResultSet result = stmt.executeQuery();
 			training.setId(result.getString(1));
