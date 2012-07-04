@@ -20,6 +20,11 @@ public class H2ConnectionProviderTest {
 		try {
 			c = provider.getConnection();
 			st = c.createStatement();
+			try {
+				st.execute("RUNSCRIPT FROM 'classpath:db/dropDB.sql'");
+			}catch(Exception e){
+
+			}
 			st.execute("RUNSCRIPT FROM 'classpath:db/createDB.sql'");
 			rs = st.executeQuery("SELECT count(*) from trainings");
 			if(rs.next()){

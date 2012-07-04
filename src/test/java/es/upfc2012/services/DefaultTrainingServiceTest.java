@@ -17,6 +17,12 @@ public class DefaultTrainingServiceTest {
 	@Test
 	public void testSaveAndGet() throws SQLException, ServiceException{
 		ConnectionProvider provider = new H2ConnectionProvider();
+		
+		try {
+			provider.getConnection().createStatement().execute("RUNSCRIPT FROM 'classpath:db/dropDB.sql'");
+		}catch(Exception e){
+
+		}
 		provider.getConnection().createStatement().execute("RUNSCRIPT FROM 'classpath:db/createDB.sql'");
 		
 		DefaultTrainingService service = new DefaultTrainingService(provider);
