@@ -45,9 +45,10 @@
 	  success: function(data) {
 	  	$('#trainingsDiv').empty();
 	  	$.each(data, function(value){
-	  		$('#trainingsDiv').append('<p>' + JSON.stringify(value) + '</p>');
-	  		$('#trainingsDiv').append('<p>Done!</p>');
+	  		$('#trainingsDiv').append('<p>' + value + '</p>');	
 	  	});
+	  	$('#trainingsDiv').append('<p>JSON</p>');
+	  	$('#trainingsDiv').append('<p>' + JSON.stringify(data) + '</p>');
 	  }
 	});
   });
