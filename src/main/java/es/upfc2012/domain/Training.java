@@ -6,7 +6,7 @@ public class Training {
 	
 	private String _name;
 	
-	private String _distance;
+	private long _distance;
 	
 	private long _trainingDate;
 
@@ -34,11 +34,11 @@ public class Training {
 		_name = name;
 	}
 
-	public String getDistance() {
+	public long getDistance() {
 		return _distance;
 	}
 
-	public void setDistance(String distance) {
+	public void setDistance(long distance) {
 		_distance = distance;
 	}
 	
