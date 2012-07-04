@@ -12,4 +12,12 @@ public interface TrainingService {
 	 * @throws ServiceException
 	 * */
 	Training save(Team team, Training training) throws ServiceException;
+	
+	/**
+	 * update a training t for team t.
+	 * 
+	 * @return the updated training
+	 * @throws ServiceException
+	 * */
+	Training update(Team team, Training training) throws ServiceException;
 }

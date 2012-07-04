@@ -24,4 +24,24 @@ public class InMemoryTrainingService implements TrainingService {
 		return training;
 
 	}
+
+	/**
+	 * Works as saveOrUpdate. If the team and the training 
+	 * exists remove the training and insert the new one.
+	 * If the training doesn't exist insert without removal. 
+	 * If the team doesn't exist call save method.
+	 */
+	@Override
+	public Training update(Team team, Training training)
+			throws ServiceException {
+		if (_trainingMap.keySet().contains(team.getName())) {
+			if (_trainingMap.get(team.getName()).contains(training)){
+				_trainingMap.get(team.getName()).remove(training);
+			}
+			_trainingMap.get(team.getName()).add(training);
+			return training;
+		}else{
+			return save(team, training);
+		}
+	}
 }
