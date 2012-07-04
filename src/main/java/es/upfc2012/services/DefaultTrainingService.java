@@ -128,23 +128,34 @@ public class DefaultTrainingService implements TrainingService {
 	@Override
 	public Training get(final String teamName, final String trainingId)
 			throws ServiceException {
-		PreparedStatement stmt;
+		PreparedStatement stmt = null;
 		Training training = new Training();
+		ResultSet result = null;
 		try {
-			stmt = _provider.getConnection().prepareStatement(GET_TRAINING);
+			try {
+				stmt = _provider.getConnection().prepareStatement(GET_TRAINING);
 
-			int index = 1;
-			stmt.setString(index++, trainingId);
-			ResultSet result = stmt.executeQuery();
-			if (result.next()) {
-				training.setId(result.getString(1));
-				training.setName(result.getString(2));
-				training.setDistance(result.getLong(3));
-				training.setTrainingDate(result.getLong(4));
-			} else {
-				throw new ServiceException(new Exception("Training not found"));
+				int index = 1;
+				stmt.setString(index++, trainingId);
+				result = stmt.executeQuery();
+				if (result.next()) {
+					training.setId(result.getString(1));
+					training.setName(result.getString(2));
+					training.setDistance(result.getLong(3));
+					training.setTrainingDate(result.getLong(4));
+				} else {
+					throw new ServiceException(new Exception(
+							"Training not found"));
+				}
+				return training;
+			} finally {
+				if (result != null) {
+					result.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
 			}
-			return training;
 		} catch (SQLException e) {
 			throw new ServiceException(e);
 		}
