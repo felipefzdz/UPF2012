@@ -20,6 +20,9 @@ public class DefaultTrainingService implements TrainingService {
 
 	private static final String RETRIEVE_TRAININGS = "select id, name, distance, training_date  from trainings where team_login = ? order by desc training_date";
 
+	private static final String GET_TRAINING = "select id, name, distance, training_date  from trainings where id = ? order by desc training_date";
+
+	
 	private final ConnectionProvider _provider;
 
 	public DefaultTrainingService(final ConnectionProvider provider) {
@@ -101,8 +104,23 @@ public class DefaultTrainingService implements TrainingService {
 	}
 
 	@Override
-	public Training get(final String teamName, final String trainingId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Training get(final String teamName, final String trainingId) throws ServiceException {
+		PreparedStatement stmt;
+		Training training = new Training();
+		try {
+			stmt = _provider.getConnection().prepareStatement(
+					GET_TRAINING);
+
+			int index = 0;
+			stmt.setString(index++, trainingId);
+			ResultSet result = stmt.executeQuery();
+			training.setId(result.getString(1));
+			training.setName(result.getString(2));
+			training.setDistance(result.getLong(3));
+			training.setTrainingDate(result.getLong(4));
+			return training;
+		} catch (SQLException e) {
+			throw new ServiceException(e);
+		}
 	}
 }
