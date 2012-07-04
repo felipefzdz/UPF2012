@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure id="Server" class="org.mortbay.jetty.Server">
+	<New id="datasource" class="org.mortbay.jetty.plus.naming.Resource">
+		<Arg>jdbc/@projectNameLowerCase@</Arg>
+		<Arg>
+			<New class="org.h2.jdbcx.JdbcDataSource">
+				<Set name="URL">jdbc:h2:file:target/h2.db</Set>
+				<Set name="User">upf2012</Set>
+				<Set name="Password">upf2012</Set>
+			</New>
+		</Arg>
+	</New>
+</Configure>
