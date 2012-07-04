@@ -20,10 +20,7 @@ public class H2ConnectionProviderTest {
 		try {
 			c = provider.getConnection();
 			st = c.createStatement();
-			rs = st.executeQuery("SELECT 1 FROM DUAL");
-			
-			int value = rs.getInt(1);
-			Assert.assertEquals(1, value);			
+			st.execute("CREATE TABLE example (id INT)");		
 		} finally {
 			if(rs != null) rs.close();
 			if(st != null) st.close();
