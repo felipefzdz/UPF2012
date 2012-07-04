@@ -5,5 +5,3 @@ create table trainings (
 	 distance number(10), 
 	 training_date number(19)
 );
-
-insert into trainings (id) values ('test');

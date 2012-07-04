@@ -20,8 +20,13 @@ public class H2ConnectionProviderTest {
 		try {
 			c = provider.getConnection();
 			st = c.createStatement();
+			st.execute("RUNSCRIPT FROM 'classpath:db/createDB.sql'");
 			rs = st.executeQuery("SELECT count(*) from trainings");
-			Assert.assertEquals(0, rs.getInt(1));
+			if(rs.next()){
+				Assert.assertEquals(0,rs.getInt(1));
+			} else {
+				Assert.fail("No result!");
+			}
 		} finally {
 			if(rs != null) rs.close();
 			if(st != null) st.close();

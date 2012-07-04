@@ -23,7 +23,7 @@ public class H2ConnectionProvider implements ConnectionProvider {
 
 	public H2ConnectionProvider() throws SQLException {
 		org.h2.Driver.load();
-		_connection = DriverManager.getConnection("jdbc:h2:file:target/h2.db;INIT=RUNSCRIPT FROM 'classpath:db/createDB.sql'", "upf2010", "upf2012");
+		_connection = DriverManager.getConnection("jdbc:h2:file:target/h2.db", "upf2010", "upf2012");
 	}
 
 	/**
