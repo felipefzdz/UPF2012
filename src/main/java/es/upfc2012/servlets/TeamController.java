@@ -35,14 +35,19 @@ public class TeamController extends HttpServlet {
 		JSONEntityType type = JSONEntityType.valueOf(req.getParameter("type"));
 		String teamName = req.getParameter("teamName");
 		
-		List<Training> trainings = new ArrayList<Training>();
-		
 		EntityDigester entityDigester = new EntityDigester();
 		
-		//TODO Retrieve all trainings by teamName
-		
-		resp.getOutputStream().write(entityDigester.serialize(trainings).getBytes("UTF-8"));
-
+		if(type == JSONEntityType.TRAINING)
+		{
+			try {
+				List<Training> trainings = _service.retrieve(teamName);
+				resp.getOutputStream().write(entityDigester.serialize(trainings).getBytes("UTF-8"));
+				
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -64,17 +69,20 @@ public class TeamController extends HttpServlet {
 		
 		EntityDigester entityDigester = new EntityDigester();
 		
-		Training entity = entityDigester.deserialize(jsonSource, type.getEntityType());
-
-		try
+		if(type == JSONEntityType.TRAINING)
 		{
-			Training result = _service.save(teamName, (Training) entity);
-
-			resp.getOutputStream().write(
-					entityDigester.serialize(result).getBytes("UTF-8"));
-
-		} catch (ServiceException e) {
-			e.printStackTrace();
+			Training entity = entityDigester.deserialize(jsonSource, type.getEntityType());
+	
+			try
+			{
+				Training result = _service.save(teamName, (Training) entity);
+	
+				resp.getOutputStream().write(
+						entityDigester.serialize(result).getBytes("UTF-8"));
+	
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
