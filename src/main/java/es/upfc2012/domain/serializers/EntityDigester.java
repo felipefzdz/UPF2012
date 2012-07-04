@@ -8,9 +8,9 @@ public class EntityDigester<E> {
 	JSONDeserializer<E> _deserializer = new JSONDeserializer<E>();
 	JSONSerializer _serializer = new JSONSerializer();
 	
-	public E deserialize(String source)
+	public E deserialize(String source, Class<E> rootType)
 	{
-		return _deserializer.deserialize(source);
+		return _deserializer.deserialize(source, rootType);
 	}
 	
 	public String serialize(E source)

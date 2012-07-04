@@ -11,8 +11,6 @@ import es.upfc2012.domain.Team;
 import es.upfc2012.domain.Training;
 import es.upfc2012.domain.requests.JSONEntityType;
 import es.upfc2012.domain.serializers.EntityDigester;
-import flexjson.JSONDeserializer;
-import flexjson.JSONSerializer;
 
 public class TeamController extends HttpServlet {
 
@@ -46,14 +44,14 @@ public class TeamController extends HttpServlet {
 		
 		EntityDigester<?> entityDigester = createDigesterForType(type);
 		
-		Object entity = entityDigester.deserialize(jsonSource);
+		Object entity = entityDigester.deserialize(jsonSource, type.getEntityType());
 
 		
+		//TODO Save
 		
 		
 		
-		
-	}
+	} 
 	
 	protected final EntityDigester<?> createDigesterForType(JSONEntityType type)
 	{
