@@ -91,25 +91,35 @@ public class DefaultTrainingService implements TrainingService {
 	@Override
 	public List<Training> retrieve(final String teamName)
 			throws ServiceException {
-		PreparedStatement stmt;
 		List<Training> trainings = new ArrayList<Training>();
+		PreparedStatement stmt = null;
+		ResultSet result = null;
 		try {
-			stmt = _provider.getConnection().prepareStatement(
-					RETRIEVE_TRAININGS);
+			try {
+				stmt = _provider.getConnection().prepareStatement(
+						RETRIEVE_TRAININGS);
 
-			int index = 1;
-			stmt.setString(index++, teamName);
-			ResultSet result = stmt.executeQuery();
+				int index = 1;
+				stmt.setString(index++, teamName);
+				result = stmt.executeQuery();
 
-			while (result.next()) {
-				Training training = new Training();
-				training.setId(result.getString(1));
-				training.setName(result.getString(2));
-				training.setDistance(result.getLong(3));
-				training.setTrainingDate(result.getLong(4));
-				trainings.add(training);
+				while (result.next()) {
+					Training training = new Training();
+					training.setId(result.getString(1));
+					training.setName(result.getString(2));
+					training.setDistance(result.getLong(3));
+					training.setTrainingDate(result.getLong(4));
+					trainings.add(training);
+				}
+				return trainings;
+			} finally {
+				if (result != null) {
+					result.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
 			}
-			return trainings;
 		} catch (SQLException e) {
 			throw new ServiceException(e);
 		}
