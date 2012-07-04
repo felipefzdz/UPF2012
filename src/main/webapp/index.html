@@ -10,7 +10,9 @@
 	<p>
 	<button id="btn2" name="btn2" value="btn2">PUT training</button>
 	</p>	
-	
+    <p>
+	<button id="btn3" name="btn3" value="btn3">GET trainings</button>
+	</p>
 	
 <script>
   $("#btn1").click(function(){ alert('hello world');});
@@ -28,6 +30,20 @@
 	  }
 	});
   });
+    $("#btn3").click(function(){
+	  $.ajax({
+	  url: 'Training',
+	  dataType: 'json',
+	  type: 'GET',
+	  data: {'type': 'TRAINING',
+	  		 'teamName': 'testTeam'
+	  	},
+	  success: function(data) {
+	  	alert('retrieved: ' + data);
+	  }
+	});
+  });
+  
 </script>
 </body>
 </html>
