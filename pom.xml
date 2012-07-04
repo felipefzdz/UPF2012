@@ -3,7 +3,7 @@
   <groupId>com.social</groupId>
   <artifactId>UPF2012</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
+  <packaging>war</packaging>
   <name>UPF2012</name>
   <description>UPF2012</description>
 </project>
