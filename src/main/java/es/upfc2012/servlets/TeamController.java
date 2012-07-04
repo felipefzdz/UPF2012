@@ -31,21 +31,35 @@ public class TeamController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+
 		JSONEntityType type = JSONEntityType.valueOf(req.getParameter("type"));
 		String teamName = req.getParameter("teamName");
-		
+		String trainingId = req.getParameter("training");
+
 		EntityDigester entityDigester = new EntityDigester();
-		
-		if(type == JSONEntityType.TRAINING)
-		{
-			try {
-				List<Training> trainings = _service.retrieve(teamName);
-				resp.getOutputStream().write(entityDigester.serialize(trainings).getBytes("UTF-8"));
-				
-			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+		if (type == JSONEntityType.TRAINING) {
+			if (trainingId == null || trainingId.trim().length() <= 0) {
+				try {
+					List<Training> trainings = _service.retrieve(teamName);
+					resp.getOutputStream().write(
+							entityDigester.serialize(trainings).getBytes(
+									"UTF-8"));
+
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				try {
+					Training training = _service.get(teamName, trainingId);
+					resp.getOutputStream().write(
+							entityDigester.serialize(training)
+									.getBytes("UTF-8"));
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -54,8 +68,27 @@ public class TeamController extends HttpServlet {
 	protected void doPost(final HttpServletRequest req,
 			final HttpServletResponse resp) throws ServletException,
 			IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		
+		JSONEntityType type = JSONEntityType.valueOf(req.getParameter("type"));
+		String teamName = req.getParameter("teamName");
+		String jsonSource = req.getParameter("json_descriptor");
+
+		EntityDigester entityDigester = new EntityDigester();
+
+		if (type == JSONEntityType.TRAINING) {
+			Training entity = entityDigester.deserialize(jsonSource,
+					type.getEntityType());
+
+			try {
+				Training result = _service.update(teamName, (Training) entity);
+
+				resp.getOutputStream().write(
+						entityDigester.serialize(result).getBytes("UTF-8"));
+
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -66,20 +99,19 @@ public class TeamController extends HttpServlet {
 		JSONEntityType type = JSONEntityType.valueOf(req.getParameter("type"));
 		String teamName = req.getParameter("teamName");
 		String jsonSource = req.getParameter("json_descriptor");
-		
+
 		EntityDigester entityDigester = new EntityDigester();
-		
-		if(type == JSONEntityType.TRAINING)
-		{
-			Training entity = entityDigester.deserialize(jsonSource, type.getEntityType());
-	
-			try
-			{
+
+		if (type == JSONEntityType.TRAINING) {
+			Training entity = entityDigester.deserialize(jsonSource,
+					type.getEntityType());
+
+			try {
 				Training result = _service.save(teamName, (Training) entity);
-	
+
 				resp.getOutputStream().write(
 						entityDigester.serialize(result).getBytes("UTF-8"));
-	
+
 			} catch (ServiceException e) {
 				e.printStackTrace();
 			}
