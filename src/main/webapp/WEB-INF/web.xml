@@ -14,6 +14,12 @@
 
     <servlet-mapping>
         <servlet-name>TeamController</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/Training</url-pattern>
     </servlet-mapping>
+    
+    <welcome-file-list>
+    	<welcome-file>
+    		index.html
+    	</welcome-file>
+    </welcome-file-list>
 </web-app>     
