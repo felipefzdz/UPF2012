@@ -1,37 +1,13 @@
-<html>                                                                  
- <head>  
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>          
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-	   $("#idTest").click(function() {
-	     alert("Hello world!");
-	   });
-	 });
-
-
-$.ajax({
-	  url: 'http://localhost:8080',
-	  data: {a: 1, b: 2, c: 3},
-	  success: function(response) {
-	  }
-	});
-	
-	
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+	<button id="btn1" name="btn1" value="btn1">action 1</button>
+<script>
+  $("#btn1").click(function(){ alert('hello world');});
 </script>
 
-</head>
-
-
-<body>
-
-Hello
-
- <span id='isTest'>Link</span>
-
 </body>
-
-
 </html>
