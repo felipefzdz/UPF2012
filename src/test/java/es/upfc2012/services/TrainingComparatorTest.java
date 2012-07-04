@@ -14,7 +14,7 @@ public class TrainingComparatorTest {
 		Training t2 = new Training();
 		t1.setTrainingDate(123);
 		t2.setTrainingDate(456);
-		Assert.assertEquals(-1, new TrainingComparator().compare(t1, t2));
+		Assert.assertEquals(1, new TrainingComparator().compare(t1, t2));
 	}
 
 }
