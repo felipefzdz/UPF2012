@@ -21,6 +21,7 @@ public class H2ConnectionProviderTest {
 			c = provider.getConnection();
 			st = c.createStatement();
 			rs = st.executeQuery("SELECT count(*) from example");
+			Assert.assertEquals(0, rs.getInt(1));
 		} finally {
 			if(rs != null) rs.close();
 			if(st != null) st.close();
