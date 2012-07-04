@@ -48,7 +48,7 @@ public class TeamController extends HttpServlet {
 		String teamName = req.getParameter("teamName");
 		String jsonSource = req.getParameter("json_descriptor");
 		
-		EntityDigester<?> entityDigester = createDigesterForType(type);
+		EntityDigester entityDigester = createDigesterForType(type);
 		
 		Object entity = entityDigester.deserialize(jsonSource, type.getEntityType());
 
@@ -56,7 +56,10 @@ public class TeamController extends HttpServlet {
 		team.setName(teamName);
 		
 		try {
-			_service.save(team, (Training)entity);
+			Training result = _service.save(team, (Training)entity);
+			
+			resp.getOutputStream().write(entityDigester.serialize(result).getBytes("UTF-8"));
+			
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

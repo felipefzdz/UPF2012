@@ -1,2 +1,1 @@
-
-curl -v -H "Content-Type: application/json" -X PUT -d type=training&team=machines&json_descriptor={'distance':'5700', training:'', name:'run in the forest', trainingDate:'1341402657'} http://localhost/UPF2012/TeamController
+curl -v -X PUT -d type=TRAINING\&teamName=machines\&json_descriptor="{'distance':'5700',training:'',name:'run in the forest',trainingDate:'1341402657'}" http://localhost:8080/UPF2012/TeamController
