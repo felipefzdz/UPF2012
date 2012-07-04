@@ -1,1 +1,11 @@
-curl -v -X PUT -d type=TRAINING\&teamName=machines\&json_descriptor="{'distance':'5700',training:'',name:'run in the forest',trainingDate:'1341402657'}" http://localhost:8080/UPF2012/TeamController
+curl -v -X PUT -d type=TRAINING\&teamName=machines\&json_descriptor="{'distance':'5700',training:'',name:'run in the forest',trainingDate:'1341402656'}"http://10.10.23.63:8080/UPF2012/TeamController
+curl -v -X PUT -d type=TRAINING\&teamName=machines\&json_descriptor="{'distance':'5700',training:'',name:'run in the forest',trainingDate:'1341402657'}"http://10.10.23.63:8080/UPF2012/TeamController
+curl -v -X PUT -d type=TRAINING\&teamName=machines\&json_descriptor="{'distance':'5700',training:'',name:'run in the forest',trainingDate:'1341402658'}"http://10.10.23.63:8080/UPF2012/TeamController
+curl -v -X PUT -d type=TRAINING\&teamName=machines\&json_descriptor="{'distance':'5700',training:'',name:'run in the forest',trainingDate:'1341402659'}"http://10.10.23.63:8080/UPF2012/TeamController
+curl -v -X GET -d type=TRAINING\&teamName=machines http://10.10.23.63:8080/UPF2012/TeamController  
+curl -v -X PUT -d type=TRAINING\&teamName=machines\&json_descriptor="{'distance':'5700',training:'',name:'run in the forest',trainingDate:'1341402635'}"http://10.10.23.63:8080/UPF2012/TeamController
+curl -v -X GET http://10.10.23.63:8080/UPF2012/TeamController?type=TRAINING\&teamName=machines
+curl -v -X GET http://10.10.23.63:8080/UPF2012/TeamController?type=TRAINING\&teamName=machines\&training=86d2e396-0b69-46f4-a3ed-bcadb39edc95
+curl -v -X POST -d type=TRAINING\&teamName=machines\&json_descriptor="{'distance':'5700',id:'86d2e396-0b69-46f4-a3ed-bcadb39edc95',name:'run in the forest',trainingDate:'1341402755'}" http://10.10.23.63:8080/UPF2012/TeamController
+curl -v -X GET http://10.10.23.63:8080/UPF2012/TeamController?type=TRAINING\&teamName=machines\&training=86d2e396-0b69-46f4-a3ed-bcadb39edc95
+curl -v -X GET http://10.10.23.63:8080/UPF2012/TeamController?type=TRAINING\&teamName=machines
