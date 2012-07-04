@@ -45,21 +45,23 @@ public class DefaultTrainingService implements TrainingService {
 
 	}
 
-	public void update(final Team team, final Training t) {
+	public Training update(final Team team, final Training training) throws ServiceException {
 		PreparedStatement stmt;
 		try {
 			stmt = _provider.getConnection().prepareStatement(UPDATE_TRAININGS);
 
 			int index = 0;
 			stmt.setString(index++, team.getName());
-			stmt.setString(index++, t.getName());
-			stmt.setLong(index++, t.getDistance());
-			stmt.setLong(index++, t.getTrainingDate());
-			stmt.setString(index++, t.getId());
+			stmt.setString(index++, training.getName());
+			stmt.setLong(index++, training.getDistance());
+			stmt.setLong(index++, training.getTrainingDate());
+			stmt.setString(index++, training.getId());
 
 			stmt.execute();
 
+			return training;
 		} catch (SQLException e) {
+			throw new ServiceException(e);
 		}
 
 	}
