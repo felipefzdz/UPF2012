@@ -19,15 +19,20 @@ import java.sql.SQLException;
  */
 public class MysqlConnectionProvider implements ConnectionProvider {
 
-    private final Connection _connection;
+    private Connection _connection = null;
 
-    public MysqlConnectionProvider() throws SQLException {
+    public MysqlConnectionProvider() {
         // org.h2.Driver.load();
-        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-        _connection =
-            DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/upf2012", "upf2012",
-                "upf2012");
+        try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            _connection =
+                DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/upf2012", "upf2012",
+                    "upf2012");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
