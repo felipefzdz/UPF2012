@@ -14,7 +14,7 @@ import es.upfc2012.domain.Training;
 public class DefaultTrainingServiceTest {
 
     @Test
-    public void testSaveAndGet() throws SQLException, ServiceException {
+    public void testSaveAndGetTotalDistance() throws SQLException, ServiceException {
         ConnectionProvider provider = new H2ConnectionProvider();
         
         provider.getConnection().createStatement()
@@ -30,6 +30,11 @@ public class DefaultTrainingServiceTest {
         training.setName("My training");
         training.setTrainingDate(System.currentTimeMillis());
         service.save("myTeam", training);
+        
+        training.setDistance(40);
+        training.setName("My training 2");
+        training.setTrainingDate(System.currentTimeMillis());
+        service.save("myTeam", training);
 
         List<Training> storedTrainings = service.retrieve("myTeam");
 
@@ -38,7 +43,7 @@ public class DefaultTrainingServiceTest {
             totalDistance += t.getDistance();
         }
 
-        Assert.assertEquals(training.getDistance(), totalDistance);
+        Assert.assertEquals(63, totalDistance);
     }
 
 }
