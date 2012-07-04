@@ -11,9 +11,14 @@ import es.upfc2012.domain.Team;
 import es.upfc2012.domain.Training;
 import es.upfc2012.domain.requests.JSONEntityType;
 import es.upfc2012.domain.serializers.EntityDigester;
+import es.upfc2012.services.InMemoryTrainingService;
+import es.upfc2012.services.ServiceException;
+import es.upfc2012.services.TrainingService;
 
 public class TeamController extends HttpServlet {
 
+	private final TrainingService _service = new InMemoryTrainingService();
+	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -40,17 +45,21 @@ public class TeamController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		JSONEntityType type = JSONEntityType.valueOf(req.getParameter("type"));
+		String teamName = req.getParameter("teamName");
 		String jsonSource = req.getParameter("json_descriptor");
 		
 		EntityDigester<?> entityDigester = createDigesterForType(type);
 		
 		Object entity = entityDigester.deserialize(jsonSource, type.getEntityType());
 
+		Team team = new Team();
+		team.setName(teamName);
 		
-		//TODO Save
-		
-		
-		
+		try {
+			_service.save(team, (Training)entity);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
 	} 
 	
 	protected final EntityDigester<?> createDigesterForType(JSONEntityType type)
