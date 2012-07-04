@@ -37,6 +37,13 @@ public class InMemoryTrainingServiceTest {
 	}
 
 	@Test
+	public void testASavedTrainingCanBeRetrieved() throws ServiceException {
+		Training save = _inMemoryTrainingService.save(_teamName, _training);
+		_inMemoryTrainingService.get(_teamName, _training.getName());
+		Assert.assertTrue(!save.getId().equals(null));
+	}
+
+	@Test
 	public void testUpdateTrainingThatPrevioslyExist() throws ServiceException {
 		Training toUpdate = _inMemoryTrainingService.save(_teamName, _training);
 		toUpdate.setName("Session in the Nintendo");

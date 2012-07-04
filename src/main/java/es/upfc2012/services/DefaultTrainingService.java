@@ -19,13 +19,14 @@ public class DefaultTrainingService implements TrainingService {
 			+ " team_login = ? , name = ? , distance = ? ,  training_date = ? where id = ?";
 
 	private static final String RETRIEVE_TRAININGS = "select id, name, distance, training_date  from trainings where team_login = ? order by desc training_date";
-	
+
 	private final ConnectionProvider _provider;
 
 	public DefaultTrainingService(final ConnectionProvider provider) {
 		_provider = provider;
 	}
 
+	@Override
 	public Training save(final String teamName, final Training training)
 			throws ServiceException {
 		PreparedStatement stmt;
@@ -49,7 +50,9 @@ public class DefaultTrainingService implements TrainingService {
 
 	}
 
-	public Training update(final String teamName, final Training training) throws ServiceException {
+	@Override
+	public Training update(final String teamName, final Training training)
+			throws ServiceException {
 		PreparedStatement stmt;
 		try {
 			stmt = _provider.getConnection().prepareStatement(UPDATE_TRAININGS);
@@ -70,17 +73,20 @@ public class DefaultTrainingService implements TrainingService {
 
 	}
 
-	public List<Training> retrieve(String teamName) throws ServiceException {
+	@Override
+	public List<Training> retrieve(final String teamName)
+			throws ServiceException {
 		PreparedStatement stmt;
 		List<Training> trainings = new ArrayList<Training>();
 		try {
-			stmt = _provider.getConnection().prepareStatement(RETRIEVE_TRAININGS);
+			stmt = _provider.getConnection().prepareStatement(
+					RETRIEVE_TRAININGS);
 
 			int index = 0;
 			stmt.setString(index++, teamName);
 			ResultSet result = stmt.executeQuery();
-			
-			while(result.next()){
+
+			while (result.next()) {
 				Training training = new Training();
 				training.setId(result.getString(1));
 				training.setName(result.getString(2));
@@ -92,5 +98,11 @@ public class DefaultTrainingService implements TrainingService {
 		} catch (SQLException e) {
 			throw new ServiceException(e);
 		}
+	}
+
+	@Override
+	public Training get(final String teamName, final String trainingId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
