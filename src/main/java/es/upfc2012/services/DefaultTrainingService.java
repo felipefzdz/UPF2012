@@ -11,7 +11,7 @@ import es.upfc2012.domain.Training;
 public class DefaultTrainingService implements TrainingService {
 
 	private static final String INSERT_INTO_TRAININGS = "insert into trainings (id, "
-			+ "team_login, name, distance) values (?,?,?,?)";
+			+ "team_login, name, distance, training_date) values (?, ?, ?, ?, ?)";
 	private final ConnectionProvider _provider;
 
 	public DefaultTrainingService(final ConnectionProvider provider) {
@@ -30,10 +30,12 @@ public class DefaultTrainingService implements TrainingService {
 			stmt.setString(index++, team.getName());
 			stmt.setString(index++, t.getName());
 			stmt.setString(index++, t.getDistance());
+			stmt.setLong(index++, t.getTrainingDate());
+
+			stmt.execute();
 
 		} catch (SQLException e) {
 		}
 
 	}
-
 }
