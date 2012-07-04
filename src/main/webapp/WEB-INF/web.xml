@@ -8,12 +8,12 @@
     <display-name>UPF2012</display-name>
 
     <servlet>
-        <servlet-name>RunnerController</servlet-name>
-        <servlet-class>es.upfc2012.servlets.RunnerController</servlet-class>
+        <servlet-name>TeamController</servlet-name>
+        <servlet-class>es.upfc2012.servlets.TeamController</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>RunnerController</servlet-name>
+        <servlet-name>TeamController</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 </web-app>     
