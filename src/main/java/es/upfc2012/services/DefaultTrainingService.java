@@ -12,6 +12,10 @@ public class DefaultTrainingService implements TrainingService {
 
 	private static final String INSERT_INTO_TRAININGS = "insert into trainings (id, "
 			+ "team_login, name, distance, training_date) values (?, ?, ?, ?, ?)";
+	
+	private static final String UPDATE_TRAININGS = "update trainings set" +
+			" team_login = ? , name = ? , distance = ? ,  training_date = ? where id = ?";
+	
 	private final ConnectionProvider _provider;
 
 	public DefaultTrainingService(final ConnectionProvider provider) {
@@ -29,8 +33,28 @@ public class DefaultTrainingService implements TrainingService {
 			stmt.setString(index++, t.getId());
 			stmt.setString(index++, team.getName());
 			stmt.setString(index++, t.getName());
-			stmt.setString(index++, t.getDistance());
+			stmt.setLong(index++, t.getDistance());
 			stmt.setLong(index++, t.getTrainingDate());
+
+			stmt.execute();
+
+		} catch (SQLException e) {
+		}
+
+	}
+	
+	public void update(final Team team, final Training t) {
+		PreparedStatement stmt;
+		try {
+			stmt = _provider.getConnection().prepareStatement(
+					UPDATE_TRAININGS);
+
+			int index = 0;
+			stmt.setString(index++, team.getName());
+			stmt.setString(index++, t.getName());
+			stmt.setLong(index++, t.getDistance());
+			stmt.setLong(index++, t.getTrainingDate());
+			stmt.setString(index++, t.getId());
 
 			stmt.execute();
 
