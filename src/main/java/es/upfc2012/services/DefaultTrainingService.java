@@ -61,20 +61,27 @@ public class DefaultTrainingService implements TrainingService {
 	@Override
 	public Training update(final String teamName, final Training training)
 			throws ServiceException {
-		PreparedStatement stmt;
+		PreparedStatement stmt = null;
 		try {
-			stmt = _provider.getConnection().prepareStatement(UPDATE_TRAININGS);
+			try {
+				stmt = _provider.getConnection().prepareStatement(
+						UPDATE_TRAININGS);
 
-			int index = 1;
-			stmt.setString(index++, teamName);
-			stmt.setString(index++, training.getName());
-			stmt.setLong(index++, training.getDistance());
-			stmt.setLong(index++, training.getTrainingDate());
-			stmt.setString(index++, training.getId());
+				int index = 1;
+				stmt.setString(index++, teamName);
+				stmt.setString(index++, training.getName());
+				stmt.setLong(index++, training.getDistance());
+				stmt.setLong(index++, training.getTrainingDate());
+				stmt.setString(index++, training.getId());
 
-			stmt.execute();
+				stmt.execute();
 
-			return training;
+				return training;
+			} finally {
+				if (stmt != null) {
+					stmt.close();
+				}
+			}
 		} catch (SQLException e) {
 			throw new ServiceException(e);
 		}
