@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.upfc2012.domain.Team;
 import es.upfc2012.domain.Training;
 import es.upfc2012.domain.requests.JSONEntityType;
 import es.upfc2012.domain.serializers.EntityDigester;
@@ -60,6 +61,32 @@ public class TeamController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+		}
+		else
+		{
+			try {
+				
+				List<Training> trainings = _service.retrieve(teamName);
+				
+				Team team = new Team();
+				
+				team.setName(teamName);
+				
+				long distance = 0L;
+				
+				for(Training training : trainings)
+				{
+					distance += training.getDistance();
+				}
+				
+				team.setDistance(distance);
+				
+				resp.getOutputStream().write(entityDigester.serialize(team).getBytes("UTF-8"));
+				
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
