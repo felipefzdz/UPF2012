@@ -20,7 +20,7 @@ public class H2ConnectionProviderTest {
 		try {
 			c = provider.getConnection();
 			st = c.createStatement();
-			st.execute("CREATE TABLE example (id INT)");		
+			rs = st.executeQuery("SELECT count(*) from example");
 		} finally {
 			if(rs != null) rs.close();
 			if(st != null) st.close();
