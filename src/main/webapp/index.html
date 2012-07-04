@@ -43,9 +43,10 @@
 	  		 'teamName': 'testTeam'
 	  	},
 	  success: function(data) {
-	  	$('trainingsDiv').empty();
+	  	$('#trainingsDiv').empty();
 	  	$.each(data, function(value){
-	  		$('trainingsDiv').append('<p>' + JSON.stringify(value) + '</p>');
+	  		$('#trainingsDiv').append('<p>' + JSON.stringify(value) + '</p>');
+	  		$('#trainingsDiv').append('<p>Done!</p>');
 	  	});
 	  }
 	});
