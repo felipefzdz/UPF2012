@@ -2,6 +2,7 @@ package es.upfc2012.services;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -14,22 +15,27 @@ import es.upfc2012.domain.Training;
 public class DefaultTrainingServiceTest {
 	
 	@Test
-	public void testSave() throws SQLException, ServiceException{
+	public void testSaveAndGet() throws SQLException, ServiceException{
 		ConnectionProvider provider = new H2ConnectionProvider();
 		provider.getConnection().createStatement().execute("RUNSCRIPT FROM 'classpath:db/createDB.sql'");
 		
 		DefaultTrainingService service = new DefaultTrainingService(provider);
 		
 		Training training = new Training();
-		training.setId("1");
 		training.setDistance(23);
 		training.setName("My training");
 		training.setTrainingDate(System.currentTimeMillis());
 		service.save("myTeam", training);
 		
-		Training storedTraining = service.get("myTeam", "1");
+		List<Training> storedTrainings = service.retrieve("myTeam");
 		
-		Assert.assertEquals(training.getDistance(), storedTraining.getDistance());
+		long totalDistance = 0;
+		for(Training t: storedTrainings){
+			totalDistance+=t.getDistance();
+		}
+		
+		
+		Assert.assertEquals(training.getDistance(), totalDistance);
 	}
 
 }
