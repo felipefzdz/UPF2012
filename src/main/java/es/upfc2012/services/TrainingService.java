@@ -2,7 +2,6 @@ package es.upfc2012.services;
 
 import java.util.List;
 
-import es.upfc2012.domain.Team;
 import es.upfc2012.domain.Training;
 
 public interface TrainingService {
@@ -14,7 +13,7 @@ public interface TrainingService {
 	 * @throws ServiceException
 	 * */
 	Training save(String teamName, Training training) throws ServiceException;
-	
+
 	/**
 	 * update a training t for teamName .
 	 * 
@@ -22,12 +21,13 @@ public interface TrainingService {
 	 * @throws ServiceException
 	 * */
 	Training update(String teamName, Training training) throws ServiceException;
-	
-	/** retrieve the training list ordered by date for teamName.
+
+	/**
+	 * retrieve the training list ordered by date for teamName.
 	 * 
 	 * @return the retrieves training list
 	 * @throws ServiceException
 	 * */
 	List<Training> retrieve(String teamName) throws ServiceException;
-	
+
 }
