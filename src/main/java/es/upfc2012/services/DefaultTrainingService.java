@@ -18,7 +18,7 @@ public class DefaultTrainingService implements TrainingService {
 	private static final String UPDATE_TRAININGS = "update trainings set"
 			+ " team_login = ? , name = ? , distance = ? ,  training_date = ? where id = ?";
 
-	private static final String RETRIEVE_TRAININGS = "select name from trainings where team_login = ? order by desc training_date";
+	private static final String RETRIEVE_TRAININGS = "select id, name, distance, training_date  from trainings where team_login = ? order by desc training_date";
 	
 	private final ConnectionProvider _provider;
 
@@ -70,7 +70,6 @@ public class DefaultTrainingService implements TrainingService {
 
 	}
 
-	@Override
 	public List<Training> retrieve(String teamName) throws ServiceException {
 		PreparedStatement stmt;
 		List<Training> trainings = new ArrayList<Training>();
@@ -83,7 +82,10 @@ public class DefaultTrainingService implements TrainingService {
 			
 			while(result.next()){
 				Training training = new Training();
-				training.setName(result.getString(1));
+				training.setId(result.getString(1));
+				training.setName(result.getString(2));
+				training.setDistance(result.getLong(3));
+				training.setTrainingDate(result.getLong(4));
 				trainings.add(training);
 			}
 			return trainings;
