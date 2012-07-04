@@ -1,1 +1,37 @@
-<html></html>
+<html>                                                                  
+ <head>  
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>          
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	   $("#idTest").click(function() {
+	     alert("Hello world!");
+	   });
+	 });
+
+
+$.ajax({
+	  url: 'http://localhost:8080',
+	  data: {a: 1, b: 2, c: 3},
+	  success: function(response) {
+	  }
+	});
+	
+	
+</script>
+
+</head>
+
+
+<body>
+
+Hello
+
+ <span id='isTest'>Link</span>
+
+</body>
+
+
+</html>
