@@ -31,21 +31,27 @@ public class DefaultTrainingService implements TrainingService {
 	@Override
 	public Training save(final String teamName, final Training training)
 			throws ServiceException {
-		PreparedStatement stmt;
+		PreparedStatement stmt = null;
 		try {
-			stmt = _provider.getConnection().prepareStatement(
-					INSERT_INTO_TRAININGS);
-			training.setId(UUID.randomUUID().toString());
+			try {
+				stmt = _provider.getConnection().prepareStatement(
+						INSERT_INTO_TRAININGS);
+				training.setId(UUID.randomUUID().toString());
 
-			int index = 1;
-			stmt.setString(index++, training.getId());
-			stmt.setString(index++, teamName);
-			stmt.setString(index++, training.getName());
-			stmt.setLong(index++, training.getDistance());
-			stmt.setLong(index++, training.getTrainingDate());
+				int index = 1;
+				stmt.setString(index++, training.getId());
+				stmt.setString(index++, teamName);
+				stmt.setString(index++, training.getName());
+				stmt.setLong(index++, training.getDistance());
+				stmt.setLong(index++, training.getTrainingDate());
 
-			stmt.execute();
-			return training;
+				stmt.execute();
+				return training;
+			} finally {
+				if (stmt != null) {
+					stmt.close();
+				}
+			}
 		} catch (SQLException e) {
 			throw new ServiceException(e);
 		}
