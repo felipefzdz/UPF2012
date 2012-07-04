@@ -8,30 +8,29 @@ public class Training {
 	
 	private String _distance;
 
-	public String get_id() {
+	public String getId() {
 		return _id;
 	}
 
-	public void set_id(String _id) {
-		this._id = _id;
+	public void setId(String id) {
+		_id = id;
 	}
 
-	public String get_name() {
+	public String getName() {
 		return _name;
 	}
 
-	public void set_name(String _name) {
-		this._name = _name;
+	public void setName(String name) {
+		_name = name;
 	}
 
-	public String get_distance() {
+	public String getDistance() {
 		return _distance;
 	}
 
-	public void set_distance(String _distance) {
-		this._distance = _distance;
+	public void setDistance(String distance) {
+		_distance = distance;
 	}
-	
 	
 
 }
