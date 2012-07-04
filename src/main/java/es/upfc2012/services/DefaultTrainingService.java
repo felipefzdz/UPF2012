@@ -18,11 +18,10 @@ public class DefaultTrainingService implements TrainingService {
 	private static final String UPDATE_TRAININGS = "update trainings set"
 			+ " team_login = ? , name = ? , distance = ? ,  training_date = ? where id = ?";
 
-	private static final String RETRIEVE_TRAININGS = "select id, name, distance, training_date  from trainings where team_login = ? order by desc training_date";
+	private static final String RETRIEVE_TRAININGS = "select id, name, distance, training_date  from trainings where team_login = ? order by training_date desc";
 
-	private static final String GET_TRAINING = "select id, name, distance, training_date  from trainings where id = ? order by desc training_date";
+	private static final String GET_TRAINING = "select id, name, distance, training_date  from trainings where id = ? order by training_date desc";
 
-	
 	private final ConnectionProvider _provider;
 
 	public DefaultTrainingService(final ConnectionProvider provider) {
@@ -104,20 +103,24 @@ public class DefaultTrainingService implements TrainingService {
 	}
 
 	@Override
-	public Training get(final String teamName, final String trainingId) throws ServiceException {
+	public Training get(final String teamName, final String trainingId)
+			throws ServiceException {
 		PreparedStatement stmt;
 		Training training = new Training();
 		try {
-			stmt = _provider.getConnection().prepareStatement(
-					GET_TRAINING);
+			stmt = _provider.getConnection().prepareStatement(GET_TRAINING);
 
 			int index = 1;
 			stmt.setString(index++, trainingId);
 			ResultSet result = stmt.executeQuery();
-			training.setId(result.getString(1));
-			training.setName(result.getString(2));
-			training.setDistance(result.getLong(3));
-			training.setTrainingDate(result.getLong(4));
+			if (result.next()) {
+				training.setId(result.getString(1));
+				training.setName(result.getString(2));
+				training.setDistance(result.getLong(3));
+				training.setTrainingDate(result.getLong(4));
+			} else {
+				throw new ServiceException(new Exception("Training not found"));
+			}
 			return training;
 		} catch (SQLException e) {
 			throw new ServiceException(e);

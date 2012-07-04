@@ -3,6 +3,8 @@ package es.upfc2012.services;
 import java.sql.SQLException;
 import java.util.Date;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 import es.upfc2012.connection.ConnectionProvider;
@@ -24,6 +26,10 @@ public class DefaultTrainingServiceTest {
 		training.setName("My training");
 		training.setTrainingDate(System.currentTimeMillis());
 		service.save("myTeam", training);
+		
+		Training storedTraining = service.get("myTeam", "1");
+		
+		Assert.assertEquals(training.getDistance(), storedTraining.getDistance());
 	}
 
 }
