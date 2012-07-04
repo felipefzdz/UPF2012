@@ -25,8 +25,9 @@ public class MysqlConnectionProvider implements ConnectionProvider {
         // org.h2.Driver.load();
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         _connection =
-            DriverManager.getConnection("jdbc:mysql://localhost:3306",
-                "upf2012", "upf2012");
+            DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/upf2012", "upf2012",
+                "upf2012");
     }
 
     /**
