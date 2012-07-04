@@ -7,6 +7,16 @@ public class Training {
 	private String _name;
 	
 	private String _distance;
+	
+	private long _trainingDate;
+
+	public long getTrainingDate() {
+		return _trainingDate;
+	}
+
+	public void setTrainingDate(long trainingDate) {
+		_trainingDate = trainingDate;
+	}
 
 	public String getId() {
 		return _id;
