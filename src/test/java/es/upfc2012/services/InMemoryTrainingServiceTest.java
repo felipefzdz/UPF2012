@@ -11,7 +11,7 @@ import es.upfc2012.domain.Training;
 
 public class InMemoryTrainingServiceTest {
 
-	private InMemoryTrainingService _inMemoryTrainingService;
+	private TrainingService _inMemoryTrainingService;
 	private String _teamName;
 	private Training _training;
 
@@ -38,9 +38,10 @@ public class InMemoryTrainingServiceTest {
 
 	@Test
 	public void testASavedTrainingCanBeRetrieved() throws ServiceException {
+
 		Training save = _inMemoryTrainingService.save(_teamName, _training);
-		_inMemoryTrainingService.get(_teamName, _training.getName());
-		Assert.assertTrue(!save.getId().equals(null));
+		Training get = _inMemoryTrainingService.get(_teamName, save.getId());
+		Assert.assertEquals(save.getId(), get.getId());
 	}
 
 	@Test
