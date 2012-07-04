@@ -1,5 +1,3 @@
-drop table trainings;
-
 create table trainings (
 	 id varchar(255), 
 	 team_login varchar(255), 
