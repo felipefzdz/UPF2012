@@ -30,4 +30,13 @@ public interface TrainingService {
 	 * */
 	List<Training> retrieve(String teamName) throws ServiceException;
 
+	/**
+	 * Retrieves a single training given it's ID.
+	 * 
+	 * @param teamName
+	 * @param trainingId
+	 * @return the training
+	 */
+	Training get(final String teamName, final String trainingId);
+
 }

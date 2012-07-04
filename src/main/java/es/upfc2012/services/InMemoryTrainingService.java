@@ -56,4 +56,9 @@ public class InMemoryTrainingService implements TrainingService {
 			return new LinkedList<Training>();
 		}
 	}
+
+	@Override
+	public Training get(final String teamName, final String trainingId) {
+		return null;
+	}
 }
