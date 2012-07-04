@@ -3,17 +3,16 @@ package es.upfc2012.domain.serializers;
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
 
-public class EntityDigester<E> {
+public class EntityDigester {
 	
-	JSONDeserializer<E> _deserializer = new JSONDeserializer<E>();
 	JSONSerializer _serializer = new JSONSerializer();
 	
-	public E deserialize(String source, Class<E> rootType)
+	public <E> E deserialize(String source, Class<E> rootType)
 	{
-		return _deserializer.deserialize(source, rootType);
+		return new JSONDeserializer<E>().deserialize(source, rootType);
 	}
 	
-	public String serialize(E source)
+	public <E> String serialize(E source)
 	{
 		return _serializer.deepSerialize(source);
 	}

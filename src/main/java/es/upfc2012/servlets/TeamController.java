@@ -1,6 +1,8 @@
 package es.upfc2012.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +31,18 @@ public class TeamController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doGet(req, resp);
+		
+		JSONEntityType type = JSONEntityType.valueOf(req.getParameter("type"));
+		String teamName = req.getParameter("teamName");
+		
+		List<Training> trainings = new ArrayList<Training>();
+		
+		EntityDigester entityDigester = new EntityDigester();
+		
+		//TODO Retrieve all trainings by teamName
+		
+		resp.getOutputStream().write(entityDigester.serialize(trainings).getBytes("UTF-8"));
+
 	}
 
 	@Override
@@ -48,15 +60,15 @@ public class TeamController extends HttpServlet {
 		String teamName = req.getParameter("teamName");
 		String jsonSource = req.getParameter("json_descriptor");
 		
-		EntityDigester entityDigester = createDigesterForType(type);
+		EntityDigester entityDigester = new EntityDigester();
 		
-		Object entity = entityDigester.deserialize(jsonSource, type.getEntityType());
+		Training entity = entityDigester.deserialize(jsonSource, type.getEntityType());
 
 		Team team = new Team();
 		team.setName(teamName);
 		
 		try {
-			Training result = _service.save(team, (Training)entity);
+			Training result = _service.save(team, entity);
 			
 			resp.getOutputStream().write(entityDigester.serialize(result).getBytes("UTF-8"));
 			
@@ -65,20 +77,20 @@ public class TeamController extends HttpServlet {
 		}
 	} 
 	
-	protected final EntityDigester<?> createDigesterForType(JSONEntityType type)
-	{
-		EntityDigester<?> digester;
-		
-		if(type == JSONEntityType.TRAINING)
-		{
-			digester = new EntityDigester<Training>();
-		}
-		else
-		{
-			digester = new EntityDigester<Team>();
-		}
-		
-		return digester;
-	}
+//	protected final EntityDigester<?> createDigesterForType(JSONEntityType type)
+//	{
+//		EntityDigester<?> digester;
+//		
+//		if(type == JSONEntityType.TRAINING)
+//		{
+//			digester = new EntityDigester<Training>();
+//		}
+//		else
+//		{
+//			digester = new EntityDigester<Team>();
+//		}
+//		
+//		return digester;
+//	}
 }
  
