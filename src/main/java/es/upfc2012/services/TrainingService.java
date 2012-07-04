@@ -37,6 +37,6 @@ public interface TrainingService {
 	 * @param trainingId
 	 * @return the training
 	 */
-	Training get(final String teamName, final String trainingId);
+	Training get(final String teamName, final String trainingId) throws ServiceException;
 
 }

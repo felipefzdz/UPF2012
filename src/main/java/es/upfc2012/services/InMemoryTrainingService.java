@@ -1,8 +1,10 @@
 package es.upfc2012.services;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
@@ -58,7 +60,21 @@ public class InMemoryTrainingService implements TrainingService {
 	}
 
 	@Override
-	public Training get(final String teamName, final String trainingId) {
-		return null;
+	public Training get(final String teamName, final String trainingId)
+			throws ServiceException {
+
+		Iterator<Training> iterator = _trainingMap.get(teamName).iterator();
+
+		Training candidate;
+		do {
+			candidate = iterator.next();
+		} while (iterator.hasNext() && !trainingId.equals(candidate.getId()));
+		if (trainingId.equals(candidate.getId())) {
+			return candidate;
+		} else {
+			throw new ServiceException("Missing Training ID",
+					new InvalidParameterException());
+		}
 	}
+
 }
