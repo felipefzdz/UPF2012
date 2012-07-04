@@ -1,7 +1,9 @@
 package es.upfc2012.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -48,7 +50,10 @@ public class InMemoryTrainingService implements TrainingService {
 	@Override
 	public List<Training> retrieve(final String teamName)
 			throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		if (_trainingMap.containsKey(teamName)) {
+			return new ArrayList<Training>(_trainingMap.get(teamName));
+		} else {
+			return new LinkedList<Training>();
+		}
 	}
 }
